@@ -31,11 +31,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   bool isLoading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // Controllers
-  final TextEditingController _userIdController = TextEditingController();
+  // final TextEditingController _userIdController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -47,9 +47,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Future<void> getData() async {
     isLoading = true;
 //    filterList = await DataBase.instance.getUserDetailsList();
-    _userIdController.text = '';
+    // _userIdController.text = '';
     // filterList.first.userId;
-    _addressController.text = '';
+    _passwordController.text = '';
     // filterList.first.address;
     _emailController.text = '';
     // filterList.first.email;
@@ -97,7 +97,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             const SizedBox(height: 5),
             profilePictureWidget(),
             const SizedBox(height: 15),
-            textInputUI(_userIdController, 'User ID'),
+            //   textInputUI(_userIdController, 'User ID'),
             const SizedBox(height: 15),
             textInputUI(_userNameController, 'Name'),
             const SizedBox(height: 15),
@@ -105,9 +105,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             const SizedBox(height: 15),
             textInputUI(_mobileNumberController, 'Mobile Number'),
             const SizedBox(height: 15),
-            textInputUI(_addressController, 'Address'),
+            textInputUI(_passwordController, 'Password'),
             const SizedBox(height: 15),
-            ButtonWidget(text: 'UPDATE', onClicked: () => onClicked())
+            ButtonWidget(text: 'SIGNUP', onClicked: () => onClicked())
           ],
         ),
       ),
@@ -128,8 +128,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         await PreferenceManager.instance.setImage(pickedFile!.path);
       }
       await PreferenceManager.instance.setName(_userNameController.text);
-      await PreferenceManager.instance.setUserId(_userIdController.text);
-      await PreferenceManager.instance.setAddress(_addressController.text);
+
+      await PreferenceManager.instance.setAddress(_passwordController.text);
 
       await PreferenceManager.instance
           .setMobileNumber(_mobileNumberController.text);
@@ -144,7 +144,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       }
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => MobileNumberScreen()),
+          MaterialPageRoute(builder: (context) => UserUpdatedProfileScreen()),
           (Route<dynamic> route) => false);
     }
   }

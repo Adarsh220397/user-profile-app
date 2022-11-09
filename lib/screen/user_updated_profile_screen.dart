@@ -8,8 +8,10 @@ import '../preferences/preference_manager.dart';
 import '../utils/widgets/circular_indicator_widget.dart';
 
 class UserUpdatedProfileScreen extends StatefulWidget {
-  final bool bFilePicked;
-  const UserUpdatedProfileScreen({super.key, required this.bFilePicked});
+  //final bool bFilePicked;
+  const UserUpdatedProfileScreen({
+    super.key,
+  });
 
   @override
   State<UserUpdatedProfileScreen> createState() =>
@@ -21,7 +23,7 @@ class _UserUpdatedProfileScreenState extends State<UserUpdatedProfileScreen> {
   late ThemeData themeData;
 
   bool isLoading = false;
-  String userId = '';
+
   String name = '';
   String address = '';
   String email = '';
@@ -38,7 +40,6 @@ class _UserUpdatedProfileScreenState extends State<UserUpdatedProfileScreen> {
   Future<void> getData() async {
     isLoading = true;
 
-    userId = await PreferenceManager.instance.getUserId();
     address = await PreferenceManager.instance.getAddress();
     email = await PreferenceManager.instance.getEmail();
     mobileNumber = await PreferenceManager.instance.getMobileNumber();
@@ -93,7 +94,6 @@ class _UserUpdatedProfileScreenState extends State<UserUpdatedProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 15),
-              Row(children: [textUI('User ID : '), textUI(userId)]),
               const SizedBox(height: 15),
               Row(children: [textUI('Name : '), textUI(name)]),
               const SizedBox(height: 15),
@@ -155,17 +155,20 @@ class _UserUpdatedProfileScreenState extends State<UserUpdatedProfileScreen> {
           SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 150,
-              child: widget.bFilePicked
-                  ? AspectRatio(
-                      aspectRatio: 16.0 / 9.0,
-                      child: Image.file(File(imagePath), fit: BoxFit.fill),
-                    )
-                  : AspectRatio(
-                      aspectRatio: 16.0 / 9.0,
-                      child: Image.memory(
-                        base64Decode(imagePath),
-                      ),
-                    )),
+              child: SizedBox()
+              //  widget.bFilePicked
+              //     ? AspectRatio(
+              //         aspectRatio: 16.0 / 9.0,
+              //         child: Image.file(File(imagePath), fit: BoxFit.fill),
+              //       )
+
+              //     : AspectRatio(
+              //         aspectRatio: 16.0 / 9.0,
+              //         child: Image.memory(
+              //           base64Decode(imagePath),
+              //         ),
+              //       ),
+              ),
         ],
       ),
     );

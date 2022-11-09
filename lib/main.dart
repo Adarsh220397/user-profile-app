@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_profile/screen/introduction.dart';
 import 'package:user_profile/screen/user_profile.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const UserProfileScreen(), //MobileNumberScreen
+      home: const IntroductionScreen(), //MobileNumberScreen
     );
   }
 }

@@ -2,19 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:user_profile/screen/mobile_number_screen.dart';
 import 'package:user_profile/screen/user_profile.dart';
 
 import '../utils/widgets/button_widget.dart';
 import '../utils/widgets/circular_indicator_widget.dart';
 
-class MobileNumberScreen extends StatefulWidget {
-  const MobileNumberScreen({Key? key}) : super(key: key);
+class IntroductionScreen extends StatefulWidget {
+  const IntroductionScreen({Key? key}) : super(key: key);
 
   @override
-  _MobileNumberScreenState createState() => _MobileNumberScreenState();
+  _IntroductionScreenState createState() => _IntroductionScreenState();
 }
 
-class _MobileNumberScreenState extends State<MobileNumberScreen> {
+class _IntroductionScreenState extends State<IntroductionScreen> {
   //Common Variables
   late ThemeData themeData;
 
@@ -68,7 +69,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
             ),
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: const Text(
-              'LOGIN',
+              'WELCOME',
               style: TextStyle(fontSize: 25, color: Colors.white),
             ),
           ),
@@ -95,19 +96,27 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 100),
-              textUI('Phone number'),
+              textUI('LOGIN'),
               const SizedBox(height: 5),
-              mobileNumberInput(),
-              const SizedBox(height: 30),
-              textUI('OTP'),
-              const SizedBox(height: 5),
-              otp(),
-              const SizedBox(height: 50),
+              //   mobileNumberInput(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ButtonWidget(
                   text: 'LOGIN',
-                  onClicked: _navigate,
+                  onClicked: _navigateToLogin,
+                  bFullContainerButton: true,
+                ),
+              ),
+              const SizedBox(height: 30),
+              //     textUI('SIGNUP'),
+              const SizedBox(height: 5),
+              //   otp(),
+              const SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ButtonWidget(
+                  text: 'SIGNUP',
+                  onClicked: _navigateToSignUp,
                   bFullContainerButton: true,
                 ),
               ),
@@ -142,7 +151,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                 style: const TextStyle(color: Colors.white),
                 onFieldSubmitted: (value) {
                   _mobileNumberCodeController.text = value;
-                  _validateMobileInputs();
+                  // _validateMobileInputs();
                 },
                 onSaved: (value) {
                   _mobileNumberCodeController.text = value!;
@@ -187,35 +196,49 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
     }
   }
 
-  void _validateMobileInputs() async {
+  void _navigateToSignUp() async {
     requestInProgress = true;
-    FocusManager.instance.primaryFocus?.unfocus();
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
 
-      setLoadingState(true);
-    }
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const UserProfileScreen()),
+        (Route<dynamic> route) => false);
+    setLoadingState(true);
   }
 
-  void _navigate() async {
-    FocusManager.instance.primaryFocus?.unfocus();
+  Future<void> checkForUserRegistration() async {
+    // await PreferenceManager.instance.setUserId(firebaseUser!.uid);
+    // AppConstants.userModel.uuid = firebaseUser!.uid;
+    // AppConstants.userModel.mobileNumber = _mobileNumberCodeController.text;
+    // print(AppConstants.userModel.uuid);
 
-    if (_otpCodeController.text.isNotEmpty &&
-        _otpCodeController.text.length == 6) {
-      _formKey.currentState!.save();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const UserProfileScreen()),
+        (Route<dynamic> route) => false);
+  }
 
-      setLoadingState(true);
+  void _navigateToLogin() async {
+    // FocusManager.instance.primaryFocus?.unfocus();
 
-      // UserModel user = UserModel(
-      //     uuid: AppConstants.userModel.uuid,
-      //     ipAddress: '',
-      //     location: '',
-      //     currentDate: DateTime.now(),
-      //     generatedQRCode: '',
-      //     qrCodePath: '',
-      //     dialCode: '+91',
-      //     mobileNumber: _mobileNumberCodeController.text);
+    // if (_otpCodeController.text.isNotEmpty &&
+    //     _otpCodeController.text.length == 6) {
+    //   _formKey.currentState!.save();
 
-    }
+    setLoadingState(true);
+
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const MobileNumberScreen()),
+        (Route<dynamic> route) => false);
+    // UserModel user = UserModel(
+    //     uuid: AppConstants.userModel.uuid,
+    //     ipAddress: '',
+    //     location: '',
+    //     currentDate: DateTime.now(),
+    //     generatedQRCode: '',
+    //     qrCodePath: '',
+    //     dialCode: '+91',
+    //     mobileNumber: _mobileNumberCodeController.text);
   }
 }

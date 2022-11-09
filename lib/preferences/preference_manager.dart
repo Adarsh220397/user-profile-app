@@ -43,17 +43,6 @@ class PreferenceManager {
   //       PreferenceConstants.isBasicUserDataFilled, isBasicUserDataFilled);
   // }
 
-  /// ------------------( USER ID )------------------
-  Future<String> getUserId() async {
-    _prefs = await SharedPreferences.getInstance();
-    return _prefs.getString(PreferenceConstants.userId) ?? "";
-  }
-
-  Future<void> setUserId(String userId) async {
-    _prefs = await SharedPreferences.getInstance();
-    _prefs.setString(PreferenceConstants.userId, userId);
-  }
-
   /// ------------------( MOBILE NUMBER )------------------
   Future<String> getMobileNumber() async {
     _prefs = await SharedPreferences.getInstance();
