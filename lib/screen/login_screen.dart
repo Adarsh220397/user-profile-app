@@ -293,15 +293,5 @@ class _LogInScreenState extends State<LogInScreen> {
                   )),
           (Route<dynamic> route) => false);
     }
-
-    // UserModel user = UserModel(
-    //     uuid: AppConstants.userModel.uuid,
-    //     ipAddress: '',
-    //     location: '',
-    //     currentDate: DateTime.now(),
-    //     generatedQRCode: '',
-    //     qrCodePath: '',
-    //     dialCode: '+91',
-    //     mobileNumber: _mobileNumberCodeController.text);
   }
 }
