@@ -12,8 +12,11 @@ class CommonUtils {
         content: Wrap(
           children: [
             Center(
-              child:
-                  Text(message, style: Theme.of(context).textTheme.subtitle1),
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.subtitle1,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),

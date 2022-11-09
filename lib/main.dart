@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_profile/screen/introduction.dart';
-import 'package:user_profile/screen/user_profile.dart';
+import 'package:user_profile/screen/sign_up_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -77,12 +77,12 @@ class PreferenceManager {
   }
 
   /// ------------------( ADDRESS )------------------
-  Future<String> getAddress() async {
+  Future<String> getPassword() async {
     _prefs = await SharedPreferences.getInstance();
     return _prefs.getString(PreferenceConstants.address) ?? "";
   }
 
-  Future<void> setAddress(String address) async {
+  Future<void> setPassword(String address) async {
     _prefs = await SharedPreferences.getInstance();
     _prefs.setString(PreferenceConstants.address, address);
   }

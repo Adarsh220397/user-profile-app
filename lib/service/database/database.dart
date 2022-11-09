@@ -1,51 +1,50 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:user_profile/service/database/sqlite_db.dart';
 import 'package:user_profile/service/model/user_details.dart';
 
 class DataBase {
   DataBase._internal();
   static DataBase instance = DataBase._internal();
 
-  Future<List<UserDetails>> getUserDetailsList() async {
-    //
-    List<UserDetails> repoList = [];
-
-    var response = await http.get(Uri.parse(
-      'http://maccode.in/adhoccars/mypanel/api_adhocCars/user_profile_update_list.php?user_id=1',
-    ));
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-
-      List responseList = jsonResponse['data'];
-
-      for (var response in responseList) {
-        repoList.add(UserDetails.fromJson(response));
-      }
-
-      //  repoList.sort(((a, b) => b.stargazersCount.compareTo(a.stargazersCount)));
-      return repoList;
-    } else {
-      Exception('No document found');
+  Future<bool> insertData(UserDetails userDetails) async {
+    try {
+      UserDetails i =
+          await TransactionDetailDataBase.instance.create(userDetails);
+    } catch (e) {
+      print('-------$e');
+      return false;
     }
-    return repoList;
+    return true;
   }
 
-  Future<String> postProfileUpdate() async {
-    //
-    String status = '';
+  Future<List<UserDetails>> getData() async {
+    List<UserDetails> list = [];
 
-    var response = await http.post(Uri.parse(
-      'http://maccode.in/adhoccars/mypanel/api_adhocCars/user_profile_update.php',
-    ));
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
+    List<UserDetails> totalList = [
+      UserDetails(
+          email: 'abc',
+          imagePath: '',
+          mobile: '1234567890',
+          password: 'sasa',
+          userId: 10,
+          userName: 'ada'),
+      UserDetails(
+          email: 'abssc',
+          imagePath: '',
+          mobile: '1234567892',
+          password: 'sasa',
+          userId: 11,
+          userName: 'adarsh'),
+    ];
 
-      status = jsonResponse;
-      print(status);
-      return status;
-    } else {
-      Exception('No document found');
+    list = await TransactionDetailDataBase.instance.readAllDocuments();
+
+    list.addAll(totalList);
+
+    for (UserDetails i in list) {
+      print(i.toJson());
     }
-    return status;
+    list.removeWhere(
+        (element) => element.email.isEmpty && element.mobile.isEmpty);
+    return list;
   }
 }
